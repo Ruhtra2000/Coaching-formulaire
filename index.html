@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Coaching Muscu – Faisons connaissance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#F5F0FF 0%,#E5F8FD 100%); min-height:100vh; padding:20px; line-height:1.6; }
+    .container { max-width:800px; margin:0 auto; background:rgba(255,255,255,.95); border-radius:24px; box-shadow:0 20px 40px rgba(142,124,255,.1); padding:40px; backdrop-filter:blur(10px); }
+    .header { text-align:center; margin-bottom:40px; }
+    .header h1 { font-size:32px; font-weight:700; color:#8E7CFF; margin-bottom:10px; text-shadow:0 2px 4px rgba(142,124,255,.1); }
+    .header p { font-size:18px; color:#666; }
+    .form-section { background:#fff; border-radius:16px; padding:30px; margin-bottom:24px; box-shadow:0 8px 24px rgba(0,0,0,.06); border:1px solid rgba(142,124,255,.1); }
+    .form-group { margin-bottom:24px; }
+    label { display:block; font-size:18px; font-weight:600; color:#333; margin-bottom:12px; }
+    input[type="text"], input[type="number"], select, textarea { width:100%; padding:16px 20px; border:2px solid #E8E8E8; border-radius:12px; font-size:16px; background:#FAFAFA; }
+    input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline:none; border-color:#8E7CFF; background:#fff; box-shadow:0 0 0 4px rgba(142,124,255,.1); }
+    textarea { resize:vertical; min-height:100px; }
+    .radio-group, .checkbox-group { display:flex; flex-wrap:wrap; gap:16px; margin-top:12px; }
+    .radio-option, .checkbox-option { display:flex; align-items:center; background:#F8F9FA; padding:12px 20px; border-radius:12px; border:2px solid #E8E8E8; cursor:pointer; }
+    .radio-option input, .checkbox-option input { margin-right:10px; width:18px; height:18px; accent-color:#8E7CFF; }
+    .radio-option.selected, .checkbox-option.selected { background:#8E7CFF; color:#fff; border-color:#8E7CFF; }
+    .likert-labels { display:flex; justify-content:space-between; font-size:14px; color:#666; margin-bottom:8px; }
+    .likert-options { display:flex; justify-content:space-between; gap:12px; }
+    .likert-option { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+    .likert-option input { width:24px; height:24px; accent-color:#8E7CFF; margin-bottom:8px; }
+    .likert-option span { font-size:14px; font-weight:600; color:#8E7CFF; }
+    .submit-btn { width:100%; background:linear-gradient(135deg,#8E7CFF 0%,#A855F7 100%); color:#fff; border:none; padding:20px 40px; font-size:20px; font-weight:700; border-radius:16px; cursor:pointer; box-shadow:0 8px 24px rgba(142,124,255,.3); margin-top:32px; }
+    .checkbox-limit-warning { font-size:14px; color:#FF6B6B; margin-top:8px; display:none; }
+    @media (max-width:768px){ .container{padding:24px; margin:10px;} .header h1{font-size:28px;} .form-section{padding:20px;} .radio-group,.checkbox-group{flex-direction:column;} .likert-options{gap:8px;} }
+    /* Merci */
+    #merci { display:none; }
+    #merci .card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 8px 24px rgba(0,0,0,.06); border:1px solid rgba(142,124,255,.1); }
+    #merci a { color:#8E7CFF; text-decoration:none; }
+    #merci a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Mon Coaching Muscu – Faisons connaissance</h1>
+      <p>Dis‑moi tout sur toi pour que je puisse t'accompagner au mieux ! 💪</p>
+    </div>
+
+    <!-- Bloc MERCI (même page) -->
+    <section id="merci">
+      <div class="card">
+        <h2>Merci ✅</h2>
+        <p>Votre formulaire a bien été envoyé. Je vous reviens rapidement.</p>
+        <p><a href=".">Revenir au formulaire</a></p>
+      </div>
+    </section>
+
+    <!-- FORMULAIRE -->
+    <form id="coachingForm" name="coaching" method="POST" action="https://formspree.io/f/xqkzqkzq" accept-charset="UTF-8">
+      <input type="hidden" name="form-name" value="coaching">
+      <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label for="prenom">Ton prénom ou pseudo 😊</label>
+          <input type="text" id="prenom" name="prenom" required>
+        </div>
+        <div class="form-group">
+          <label for="age">Ton âge (années)</label>
+          <input type="number" id="age" name="age" min="13" max="100" required>
+        </div>
+        <div class="form-group">
+          <label for="taille">Ta taille (cm)</label>
+          <input type="number" id="taille" name="taille" min="120" max="250" required>
+        </div>
+        <div class="form-group">
+          <label for="poids">Ton poids actuel (kg)</label>
+          <input type="number" id="poids" name="poids" min="30" max="200" required>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label>Des douleurs/blessures ?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="douleurs" value="non" required><span>Non</span></label>
+            <label class="radio-option"><input type="radio" name="douleurs" value="genou"><span>Genou</span></label>
+            <label class="radio-option"><input type="radio" name="douleurs" value="dos"><span>Dos</span></label>
+            <label class="radio-option"><input type="radio" name="douleurs" value="autre"><span>Autre</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label>Tes objectifs principaux</label>
+          <div class="checkbox-group" id="objectifs-group">
+            <label class="checkbox-option"><input type="checkbox" name="objectifs" value="tonifier"><span>Me tonifier</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="objectifs" value="muscle"><span>Prendre du muscle</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="objectifs" value="gras"><span>Perdre du gras</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="objectifs" value="energie"><span>Booster mon énergie</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="objectifs" value="defouler"><span>Me défouler/kiffer</span></label>
+          </div>
+          <div class="checkbox-limit-warning" id="objectifs-warning">Tu peux sélectionner maximum 2 objectifs principaux</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label>Ta motivation aujourd'hui</label>
+          <div class="likert-scale">
+            <div class="likert-labels"><span>Besoin d'un coup de boost</span><span>Je suis déjà en feu</span></div>
+            <div class="likert-options">
+              <label class="likert-option"><input type="radio" name="motivation" value="1" required><span>1</span></label>
+              <label class="likert-option"><input type="radio" name="motivation" value="2"><span>2</span></label>
+              <label class="likert-option"><input type="radio" name="motivation" value="3"><span>3</span></label>
+              <label class="likert-option"><input type="radio" name="motivation" value="4"><span>4</span></label>
+              <label class="likert-option"><input type="radio" name="motivation" value="5"><span>5</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label for="seances">Séances que tu peux faire par semaine</label>
+          <select id="seances" name="seances" required>
+            <option value="">Choisis le nombre de séances</option>
+            <option value="1">1 séance</option>
+            <option value="2">2 séances</option>
+            <option value="3">3 séances</option>
+            <option value="4">4 séances</option>
+            <option value="5">5 séances</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tes créneaux préférés</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option"><input type="checkbox" name="creneaux" value="matin"><span>Matin</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="creneaux" value="midi"><span>Midi</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="creneaux" value="aprem"><span>Fin d'après-midi</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="creneaux" value="soir"><span>Soir</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label for="frein">Le principal frein pour toi (temps, confiance, nutrition…)</label>
+          <textarea id="frein" name="frein" placeholder="Raconte-moi ce qui te freine le plus dans ta pratique sportive..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="autre">Autre chose que tu veux partager ?</label>
+          <textarea id="autre" name="autre" placeholder="Partage ce qui m'aidera à personnaliser l'accompagnement."></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Enregistrer 🚀</button>
+    </form>
+  </div>
+
+  <script>
+  (function () {
+    // Afficher le bloc "merci" si success=1 dans l'URL
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("success") === "1") {
+      var merci = document.getElementById("merci");
+      var form = document.getElementById("coachingForm");
+      if (merci) { merci.style.display = "block"; }
+      if (form) { form.style.display = "none"; }
+      // Nettoie l'URL pour éviter de réafficher "merci" au rechargement manuel
+      if (history && history.replaceState) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+    }
+
+    // Effets visuels (sans backticks)
+    var radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        var group = document.querySelectorAll('input[name="' + this.name + '"]');
+        group.forEach(function (r) {
+          var box = r.closest('.radio-option');
+          if (box) { box.classList.remove('selected'); }
+        });
+        var cur = this.closest('.radio-option');
+        if (cur) { cur.classList.add('selected'); }
+      });
+    });
+
+    var objGroup = document.getElementById('objectifs-group');
+    if (objGroup) {
+      var warning = document.getElementById('objectifs-warning');
+      objGroup.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          var box = this.closest('.checkbox-option');
+          if (box) { this.checked ? box.classList.add('selected') : box.classList.remove('selected'); }
+          var checked = objGroup.querySelectorAll('input[type="checkbox"]:checked');
+          if (checked.length > 2) {
+            this.checked = false;
+            if (box) { box.classList.remove('selected'); }
+            if (warning) { warning.style.display = 'block'; setTimeout(function(){ warning.style.display = 'none'; }, 3000); }
+          }
+        });
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
